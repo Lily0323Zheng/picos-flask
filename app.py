@@ -11,7 +11,7 @@ from transformers import AutoTokenizer, AutoModel
 from sklearn.metrics.pairwise import cosine_similarity
 
 from flask_cors import CORS
-app = Flask(__name__)
+app = Flask(__name__)  # Initialize Flask app
 CORS(app) 
 
 tokenizer = AutoTokenizer.from_pretrained("dmis-lab/biobert-v1.1") # Load BioBERT tokenizer
@@ -19,7 +19,7 @@ model = AutoModel.from_pretrained("dmis-lab/biobert-v1.1") # Load BioBERT model
 df = pd.read_pickle('dataset_final.pkl') # Load preprocessed dataset
 global_filtered_df = None # Store filtered DataFrame for deep search
 global_last_recommendations = None # Store last recommendations for deep search
-app = Flask(__name__) # Initialize Flask app
+
 
 def fuzzy_field_score(str1, str2):
     if not str1 or not str2: # If either string is empty, return 0
@@ -227,4 +227,4 @@ def recommend(): # Handle recommendation requests
 if __name__ == '__main__': # Main entry point for the Flask app
     import os
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=5555) # Run the Flask app on all interfaces at port 5000
+    app.run(host='0.0.0.0', port=port) # Run the Flask app on all interfaces at port 5000
